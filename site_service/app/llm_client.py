@@ -1,6 +1,6 @@
 import os
 import httpx
-from site_service.app.schemas import TextRequest
+from app.schemas import TextRequest
 
 LLM_URL = os.getenv("LLM_URL", "http://localhost:8001").rstrip("/")
 
@@ -42,7 +42,7 @@ async def process_text(
 
         response.raise_for_status()
         data = response.json()
-        
+
         return data.get("result", "")
 
 async def stop(user_id: str):

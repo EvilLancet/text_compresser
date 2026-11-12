@@ -5,11 +5,11 @@ from uuid import uuid4
 from fastapi import APIRouter, HTTPException, Depends, Cookie, Response
 from fastapi.responses import FileResponse
 import httpx
-from site_service.app import history
+from app import history
 
-from site_service.app import llm_client
-from site_service.app.database import get_db
-from site_service.app.schemas import TextRequest
+from app import llm_client
+from app.database import get_db
+from app.schemas import TextRequest
 from sqlalchemy.orm import Session
 
 
