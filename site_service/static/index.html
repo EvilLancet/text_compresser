@@ -147,8 +147,8 @@
 <body>
     <h1>Сжатие текста</h1>
 
-    <textarea id="input" placeholder="Напиши текст, который нужно сжать..." maxlength="1000"></textarea>
-    <div class="char-counter" id="charCounter">0 / 1000</div>
+    <textarea id="input" placeholder="Напиши текст, который нужно сжать..." maxlength="3000"></textarea>
+    <div class="char-counter" id="charCounter">0 / 3000</div>
 
     <div class="level-block">
         <label for="compression">Уровень сжатия</label>
@@ -177,7 +177,7 @@
     </div>
 
     <script>
-        const MAX_LENGTH = 1000;
+        const MAX_LENGTH = 3000;
 
         let levels = [];
 

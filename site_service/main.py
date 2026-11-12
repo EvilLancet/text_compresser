@@ -13,10 +13,11 @@ import httpx
 import os
 
 LLM_URL = os.getenv("LLM_URL", "http://localhost:8001")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///sqlite3.db")
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-engine = create_engine('sqlite:///sqlite3.db')
+engine = create_engine(DATABASE_URL)
 engine.connect()
 
 Base = declarative_base()

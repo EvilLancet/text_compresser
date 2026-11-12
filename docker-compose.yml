@@ -1,0 +1,29 @@
+services:
+    llm_service:
+        build: ./llm_service
+        container_name: llm_service
+        restart: unless-stopped
+        expose:
+            - "8001"
+        environment:
+            - OLLAMA_URL=http://host.docker.internal:11434
+            - OLLAMA_MODEL=qwen3.5:4b
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+    
+    site_service:
+        build: ./site_service
+        container_name: site_service
+        restart: unless-stopped
+        ports:
+            - "8000:8000"
+        environment:
+            - LLM_URL=http://llm_service:8001
+            - DATABASE_URL=sqlite:////data/sqlite3.db
+            - MAX_TEXT_LENGTH=1000
+        volumes:
+            - site_service_data:/data
+        depends_on:
+            - llm_service
+volumes:
+    site_service_data:
