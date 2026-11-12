@@ -8,7 +8,7 @@ router = APIRouter()
 @router.post("/stop")
 async def stop(data: UserId):
     ai_queue.cancel(data.user_id)
-    return {"status": "ok"}
+    return {"success": True}
 
 @router.post("/add_to_queue")
 async def process_text(data: CompressRequest):

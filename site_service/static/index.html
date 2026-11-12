@@ -428,8 +428,12 @@
             arrow.textContent = content.classList.contains("open") ? "▲" : "▼";
         });
 
-        loadLevels();
-        loadHistory();
+        async function init() {
+			await loadLevels();
+			await loadHistory();
+		}
+
+		init();
 
         function setButtonToCancel() {
             btn.textContent = "Отменить";
