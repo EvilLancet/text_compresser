@@ -1,5 +1,3 @@
-
-
 from uuid import uuid4
 
 from fastapi import APIRouter, HTTPException, Depends, Cookie, Response
@@ -15,14 +13,17 @@ from sqlalchemy.orm import Session
 
 router = APIRouter()
 
+# Корневой эндпоинт 
 @router.get("/")
 async def root(): 
     return FileResponse("static/index.html")
 
+# Проверка состояния сервиса
 @router.get("/health")
 async def health():
     return {"status": "ok"}
 
+# Получение уровней сокращения текста
 @router.get("/levels")
 async def get_levels():
     try:
@@ -40,19 +41,21 @@ async def get_levels():
             detail=str(error)
         )
 
-
+# Получение всех записей истории для конкретного пользователя
 @router.get("/history")
 async def get_all_history(
     user_id: str | None = Cookie(default=None),
     db: Session = Depends(get_db)):
     return history.get_all_history(user_id, db)
 
+# Удаление всей истории конкретного пользователя
 @router.delete("/historys")
 async def delete_all_history(
     user_id: str | None = Cookie(default=None),
     db: Session = Depends(get_db)):
     return history.delete_all_history(user_id, db)
 
+# Удаление одной записи истории по номеру записи и идентификатору пользователя
 @router.delete("/history/{record_id}")
 async def delete_one_history(
     record_id: int,
@@ -60,6 +63,7 @@ async def delete_one_history(
     db: Session = Depends(get_db)):
     return history.delete_one_history(record_id, user_id, db)
 
+# Сокращение текста и сохранение результата в истории
 @router.post("/process")
 async def process_text(
     data: TextRequest,
@@ -129,6 +133,7 @@ async def process_text(
             "item": record.to_dict()
         }
 
+# Отмена обработки текста
 @router.post("/stop")
 async def stop(
     user_id: str | None = Cookie(default=None)

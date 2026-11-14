@@ -4,6 +4,7 @@ from app.schemas import TextRequest
 
 LLM_URL = os.getenv("LLM_URL", "http://localhost:8001").rstrip("/")
 
+# Получение уровней сокращения текста
 async def get_levels():
     async with httpx.AsyncClient(timeout=10.0) as client:
         response = await client.get(f"{LLM_URL}/levels")
@@ -13,6 +14,7 @@ async def get_levels():
             raise ValueError("Не удалось получить уровни сокращения")
         return data
 
+# Сокращение текста
 async def process_text(
     data: TextRequest,
     user_id: str
@@ -45,6 +47,7 @@ async def process_text(
 
         return data.get("result", "")
 
+# Отмена обработки текста
 async def stop(user_id: str):
     async with httpx.AsyncClient(timeout=10.0) as client:
         response = await client.post(

@@ -7,6 +7,7 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///sqlite3.db")
 
 engine = create_engine(DATABASE_URL)
 
+# Создание cессии базы данных
 SessionLocal = sessionmaker(
     bind=engine,
     autocommit=False,
@@ -16,8 +17,7 @@ SessionLocal = sessionmaker(
 
 Base = declarative_base()
 
-# для уверенности, что сессия закроется
-# https://docs-python.ru/packages/freimvork-fastapi/depends-url-fastapi/
+# Управленрие сессией базы данных
 async def get_db():
     db = SessionLocal()
     try:

@@ -3,6 +3,7 @@ from sqlalchemy import  create_engine, Integer, Text, String,\
 from datetime import datetime
 from app.database import Base
 
+# Модель таблицы сохраненных данных
 class SaveTable(Base):
     __tablename__ = 'SaveTable'
     id = Column(Integer, primary_key=True)
