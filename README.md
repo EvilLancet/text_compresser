@@ -186,7 +186,3 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
     ├── static/index.html      # веб-интерфейс
     └── Dockerfile
 ```
-
-## Лицензия
-
-Лицензия в репозитории пока не указана.
